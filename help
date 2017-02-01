@@ -1,0 +1,7 @@
+These are some commands off of stack overflow used to create vulnerable binaries.
+
+sudo bash -c 'echo 0 > /proc/sys/kernel/randomize_va_space'
+
+
+
+gcc overflow.c -o overflow -fno-stack-protector
