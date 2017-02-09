@@ -137,7 +137,6 @@ then the issue will be resolved.
 ```
 #include <stdio.h>
 #include <stdlib.h>
-#include <linux/random.h>
 #include <string.h>
 
 int main()
@@ -174,6 +173,38 @@ int main()
 }
 ```
 
-As you can see here, instead of using time as a seed we read data from "/dev/urandom" and use the data as a seed. That way it is crptographically secure and someone just can't use system time as a seed and generate the same sequence.
+As you can see here, instead of using time as a seed we read data from "/dev/urandom" and use the data as a seed. That way it is crptographically secure and someone just can't use system time as a seed and generate the same sequence. Now let's test it. First let's modify the exploit to use urandom as a seed.
 
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
+int main()
+{
+	int i;	    
+	int fd;
+    	int r;
+    	fd = fopen("/dev/urandom", "rb");
+    	char buf2[30];
+    	fread(buf2, sizeof(buf2), 1, fd);
+
+    	srand(buf2);
+
+	for (i=0; i<50; i++) 
+	{
+		int r = rand() % 100;
+		printf("%d\n", r);
+	}
+}
+```
+
+Now let's try out our new exploit.
+
+```
+root@tux:/Hackery/cr@ck_th3_c0de/hole/h0# echo `./exploit_secure` | ./h0_secureYou've been falling for 0 days. Strange, that is 0 days more than you will spend outside.
+How very predictable.
+Your number was 77
+```
+
+And just like that, even if we are pulling data from the same file we still end up with different seeds so we can't generate the same sequence. Just like that we patched the binary.
