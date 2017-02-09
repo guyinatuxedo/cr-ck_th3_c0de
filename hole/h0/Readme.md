@@ -30,7 +30,7 @@ int main()
 		if (strcmp(buf1, buf0) != 0)
 			{			
 			printf("How very predictable.\n");
-			printf("That is your number %s\n", buf1);
+			printf("Your number was %s\n", buf1);
 			exit(0);
 			}				
 		}
@@ -148,7 +148,6 @@ int main()
 	fd = fopen("/dev/urandom", "rb");
 	char buf2[30];
 	fread(buf2, sizeof(buf2), 1, fd);
-	printf("%s\n", buf2);
 
 	srand(buf2);
 
@@ -164,13 +163,12 @@ int main()
 		sprintf(buf1, "%d", var2);
 		scanf(" %s", buf0);
 		strtok(buf0, "\n");
-		printf("Your number is %s", buf1);
 		if (strcmp(buf1, buf0) != 0)
-			{			
-			printf("How very predictable.\n");
-			printf("There was buf1\n");
-			exit(0);
-			}				
+               	 	{
+                	printf("How very predictable.\n");
+                        printf("Your number was %s\n", buf1);
+                        exit(0);
+                	}
 		}
 	printf("How very unpredictable. Level Cleared\n");
 }
