@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <linux/random.h>
 #include <string.h>
 
 int main()
